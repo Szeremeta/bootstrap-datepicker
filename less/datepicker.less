@@ -1,3 +1,4 @@
+
 /*!
  * Datepicker for Bootstrap
  *
@@ -8,85 +9,274 @@
  *
  */
 
+/*
+ * Core Style
+ */
+
+@cell-spacing: 42px;
+
 .datepicker {
-	top: 0;
-	left: 0;
-	padding: 4px;
-	margin-top: 1px;
-	.border-radius(4px);
-	&:before {
-		content: '';
-		display: inline-block;
-		border-left:   7px solid transparent;
-		border-right:  7px solid transparent;
-		border-bottom: 7px solid #ccc;
-		border-bottom-color: rgba(0,0,0,.2);
-		position: absolute;
-		top: -7px;
-		left: 6px;
+	padding: 0;
+	//border-radius: 4px;
+	.rounded(4px);
+	margin-top: -10px;
+	margin-left: -1px;
+	border-color: #bbb;
+
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+
+	&-inline {
+		width: 220px;
 	}
-	&:after {
-		content: '';
-		display: inline-block;
-		border-left:   6px solid transparent;
-		border-right:  6px solid transparent;
-		border-bottom: 6px solid @white;
-		position: absolute;
-		top: -6px;
-		left: 7px;
+	
+	direction: ltr;
+	
+	&&-rtl {
+		direction: rtl;
+
+		table tr td span {
+			float: right;
+		}
 	}
-	>div {
+	
+	&-dropdown {
+		top: 0;
+		left: 0;
+
+		&:before {
+			content: '';
+			display: inline-block;
+			border-left:   7px solid transparent;
+			border-right:  7px solid transparent;
+			border-bottom: 7px solid #e0e0e0;
+			border-top:    0;
+			border-bottom-color: rgba(0,0,0,.2);
+			position: absolute;
+		}
+
+		&:after {
+			content: '';
+			display: inline-block;
+			border-left:   6px solid transparent;
+			border-right:  6px solid transparent;
+			border-bottom: 6px solid #fff;
+			border-top:    0;
+			position: absolute;
+		}
+
+		&.datepicker-orient-left:before   { left: 14px; }
+		&.datepicker-orient-left:after    { left: 15px; }
+		&.datepicker-orient-right:before  { right: 14px; }
+		&.datepicker-orient-right:after   { right: 15px; }
+		&.datepicker-orient-top:before    { top: -15px; }
+		&.datepicker-orient-top:after     { top: -14px; }
+
+		&.datepicker-orient-bottom:before {
+			bottom: -7px;
+			border-bottom: 0;
+			border-top: 7px solid #aaa;
+		}
+
+		&.datepicker-orient-bottom:after {
+			bottom: -6px;
+			border-bottom: 0;
+			border-top: 6px solid #fff;
+		}
+	}
+
+	> div {
 		display: none;
 	}
-	&.days div.datepicker-days {
+
+	&.days .datepicker-days,
+	&.months .datepicker-months,
+	&.years .datepicker-years {
 		display: block;
 	}
-	&.months div.datepicker-months {
-		display: block;
-	}
-	&.years div.datepicker-years {
-		display: block;
-	}
-	table{
+
+	table {
 		margin: 0;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+
+		tr {
+			td, 
+			th {
+				text-align: center;
+				width: @cell-spacing;
+				height: @cell-spacing;
+				//border-radius: 4px;
+				border: 1px solid #e0e0e0;
+				padding: 5px 5px 2px 5px;
+
+				&:last-child {
+					border-right: 0;
+					background-color: #fdfdfd;
+				}
+
+				&:first-child {
+					border-left: 0;
+					background-color: #fdfdfd;
+				}
+			}
+
+			th {
+				&.prev,
+				&.next {
+					.transition(color 150ms @movementEasing);
+					font-family: 'barclaycard-icons';
+					speak: none;
+					font-style: normal;
+					font-weight: normal;
+					font-variant: normal;
+					text-transform: none;
+					line-height: 1;
+
+					/* Better Font Rendering =========== */
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+
+					color: @bp-blue;
+					font-size: 18px;
+					background-color: #fff;
+					border-top: 0;
+
+					&:hover {
+						color: @bp-blue-dark;
+					}
+				}
+
+				&.next {
+					-webkit-border-top-right-radius: 4px;
+					-moz-border-radius-topright: 4px;
+					border-top-right-radius: 4px;
+				}
+
+				&.prev {
+					-webkit-border-top-left-radius: 4px;
+					-moz-border-radius-topleft: 4px;
+					border-top-left-radius: 4px;
+				}
+
+				&.dow {
+					color: #000;
+				}
+			}
+		}
+
+		tr:last-child {
+			td:first-child {
+				-webkit-border-bottom-left-radius: 4px;
+				-moz-border-radius-bottomleft: 4px;
+				border-bottom-left-radius: 4px;
+			}
+
+			td:last-child {
+				-webkit-border-bottom-right-radius: 4px;
+				-moz-border-radius-bottomright: 4px;
+				border-bottom-right-radius: 4px;
+			}
+
+			td {
+				border-bottom: 0;
+			}
+		}
 	}
-	td,
-	th{
-		text-align: center;
-		width: 20px;
-		height: 20px;
-		.border-radius(4px);
+
+	// Inline display inside a table presents some problems with
+	// border and background colors.
+	.table-striped & table tr {
+		td, 
+		th {
+			background-color: transparent;
+		}
 	}
-	td {
-		&.day:hover {
-			background: @grayLighter;
+
+	table tr td {
+		.transition(background 150ms @movementEasing);
+
+		&.day:hover, 
+		&.day.focused {
+			background: @bp-gray-hover;
 			cursor: pointer;
 		}
+
+		&.day {
+			&.active {
+				background-color: @bp-blue-light !important;
+			}
+		}
+
 		&.old,
 		&.new {
-			color: @grayLight;
+			color: @btn-link-disabled-color;
 		}
+
 		&.disabled,
 		&.disabled:hover {
 			background: none;
-			color: @grayLight;
+			color: #ccc;
 			cursor: default;
 		}
+
 		&.today,
 		&.today:hover,
 		&.today.disabled,
 		&.today.disabled:hover {
-			@todayBackground: lighten(@orange, 30%);
-			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
+			//@today-bg: lighten(orange, 30%);
+			@today-bg: @bp-blue;
+			.button-variant(#fff, @today-bg, #e0e0e0);
+			border: 0;
 		}
+
+		&.today:hover:hover { // Thank bootstrap 2.0 for this selector...
+			// TODO: Bump min BS to 2.1, use @textColor in buttonBackground above
+			color: @bp-gray-hover;
+		}
+
+		&.today.active:hover {
+			color: @bp-gray-hover;
+		}
+
+		&.range,
+		&.range:hover,
+		&.range.disabled,
+		&.range.disabled:hover {
+			background: @bp-gray-hover;
+			border-radius: 0;
+		}
+
+		&.range.today,
+		&.range.today:hover,
+		&.range.today.disabled,
+		&.range.today.disabled:hover {
+			@today-bg: @bp-blue;
+			.button-variant(#fff, @today-bg, #e0e0e0);
+			border-radius: 0;
+			border: 0;
+		}
+
+		&.selected,
+		&.selected:hover,
+		&.selected.disabled,
+		&.selected.disabled:hover {
+			.button-variant(#fff, @gray-light, #e0e0e0);
+		}
+
 		&.active,
 		&.active:hover,
 		&.active.disabled,
 		&.active.disabled:hover {
-			.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
-			color: #fff;
-			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+			@today-bg: @bp-blue;
+			.button-variant(#fff, @today-bg, #e0e0e0);
 		}
+
 		span {
 			display: block;
 			width: 23%;
@@ -95,53 +285,150 @@
 			float: left;
 			margin: 1%;
 			cursor: pointer;
-			.border-radius(4px);
+			//border-radius: 4px;
+			
 			&:hover {
-				background: @grayLighter;
+				background: @bp-gray-hover;
 			}
+			
 			&.disabled,
 			&.disabled:hover {
-				background:none;
-				color: @grayLight;
+				background: none;
+				color: #ccc;
 				cursor: default;
 			}
+			
 			&.active,
 			&.active:hover,
 			&.active.disabled,
 			&.active.disabled:hover {
-				.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
-				color: #fff;
-				text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+				@today-bg: @bp-blue-dark;
+				.button-variant(#fff, @today-bg,  #e0e0e0);
 			}
-			&.old {
-				color: @grayLight;
+			
+			&.old,
+			&.new {
+				color: #777;
 			}
 		}
 	}
 
-	th.switch {
+	.datepicker-switch {
 		width: 145px;
+		font-size: 16px;
+		color: #333;
+		border-top: 0;
 	}
 
 	thead tr:first-child th,
-	tfoot tr:first-child th {
+	tfoot tr th {
 		cursor: pointer;
-		&:hover{
-			background: @grayLighter;
+		.transition(background 150ms @movementEasing);
+
+		&:hover {
+			background: @bp-gray-hover;
 		}
 	}
-	/*.dow {
-		border-top: 1px solid #ddd !important;
-	}*/
+
+	// Basic styling for calendar-week cells
+	.cw {
+		font-size: 10px;
+		width: 12px;
+		padding: 0 2px 0 5px;
+		vertical-align: middle;
+	}
+
+	thead tr:first-child .cw {
+		cursor: default;
+		background-color: transparent;
+	}
 }
-.input-append,
-.input-prepend {
-	&.date {
-		.add-on i {
-			display: block;
-			cursor: pointer;
-			width: 16px;
-			height: 16px;
+
+.input-group.date .input-group-addon {
+	cursor: pointer;
+}
+
+.input-daterange {
+	width: 100%;
+	
+	input {
+		text-align:center;
+	}
+	
+	input:first-child {
+		border-radius: 3px 0 0 3px;
+	}
+
+	input:last-child {
+		border-radius: 0 3px 3px 0;
+	}
+
+	.input-group-addon {
+		width: auto;
+		min-width: 16px;
+		padding: 4px 5px;
+		font-weight: normal;
+		line-height: @line-height-base;
+		text-align: center;
+		text-shadow: 0 1px 0 #fff;
+		vertical-align: middle;
+		background-color: @input-group-addon-bg;
+		border: solid @input-group-addon-border-color;
+		border-width: 1px 0;
+		margin-left:-5px;
+		margin-right:-5px;
+	}
+}
+
+
+
+/*
+ * Browser/Feature Specific
+ */
+
+// IE8 fixes for :last-child psuedo selector
+.is-ie8 {
+	.datepicker {
+		z-index: 99;
+		
+		&-dropdown {
+			&:before,
+			&:after,
+			&.datepicker-orient-bottom:before,
+			&.datepicker-orient-bottom:after {
+				z-index: 100;
+			}
+		}
+
+		table {
+			tr + tr + tr + tr + tr + tr {
+				td {
+					border-bottom: 1px solid #bbb;
+					//padding-bottom: 1px;
+					//background-color: red;
+				}
+			}
+
+			tr {
+				td + td + td + td + td, 
+				th + th + th + th + th{
+					border-right: 0;
+				}
+			}
+
+			thead {
+				tr {
+					th + th + th {
+						border-right: 0;
+					}
+				}
+			}
 		}
 	}
 }
+
+/*
+ * Responsive Specific
+ */
+
+
