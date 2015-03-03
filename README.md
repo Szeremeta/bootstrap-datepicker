@@ -6,6 +6,17 @@ thanks go to him for getting this thing started!
 Please note that this fork is not used on Stefan's page at this time, nor is it maintained or
 contributed to by him (yet?)
 
+# Style Update
+
+The look and has been update from this
+
+![alt tag](https://github.com/Szeremeta/bootstrap-datepicker/blob/master/original.png)
+
+to this
+
+![alt tag](https://github.com/Szeremeta/bootstrap-datepicker/blob/master/new.png)
+
+
 # Example
 
 Attached to a field with the format specified via options:
